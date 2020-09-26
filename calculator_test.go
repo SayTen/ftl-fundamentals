@@ -6,9 +6,10 @@ import (
 )
 
 type testCase struct {
-	a, b float64
-	want float64
-	name string
+	a, b        float64
+	want        float64
+	name        string
+	errExpected bool
 }
 
 func TestAdd(t *testing.T) {
@@ -62,6 +63,31 @@ func TestMultiply(t *testing.T) {
 		got := calculator.Multiply(tc.a, tc.b)
 		if tc.want != got {
 			t.Errorf("%s: Multiply(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
+		}
+	}
+}
+
+func TestDivide(t *testing.T) {
+	t.Parallel()
+
+	testCases := []testCase{
+		{a: 6, b: 2, want: 3, name: "Divides two positive numbers"},
+		{a: 6, b: -2, want: -3, name: "Divides a positive number by a negative number"},
+		{a: -6, b: 2, want: -3, name: "Divides a negative number by a positive number"},
+		{a: -6, b: -2, want: 3, name: "Divides two negative numbers"},
+		{a: 6, b: 0, want: 999, name: "Divide by zero", errExpected: true},
+	}
+
+	for _, tc := range testCases {
+		got, err := calculator.Divide(tc.a, tc.b)
+
+		errGot := err != nil
+		if tc.errExpected == errGot {
+			t.Fatalf("%s: Divide(%f, %f): unexpected error status: %v", tc.name, tc.a, tc.b, errGot)
+		}
+
+		if tc.want != got {
+			t.Errorf("%s: Divide(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
 		}
 	}
 }
