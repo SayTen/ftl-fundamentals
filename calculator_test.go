@@ -15,8 +15,8 @@ func TestAdd(t *testing.T) {
 
 	testCases := []testCase{
 		{a: 2, b: 2, want: 4},
-		{a: 1, b: 1, want: 2},
-		{a: 5, b: 0, want: 5},
+		{a: -3, b: 2, want: -1},
+		{a: -3, b: -3, want: -6},
 	}
 
 	for _, tc := range testCases {
@@ -32,8 +32,8 @@ func TestSubtract(t *testing.T) {
 
 	testCases := []testCase{
 		{a: 2, b: 2, want: 0},
-		{a: 1, b: 1, want: 0},
-		{a: 5, b: 0, want: 5},
+		{a: 4, b: -2, want: 6},
+		{a: -4, b: -2, want: -2},
 	}
 
 	for _, tc := range testCases {
@@ -51,7 +51,7 @@ func TestMultiply(t *testing.T) {
 	testCases := []testCase{
 		{a: 2, b: 2, want: 4},
 		{a: 1, b: 1, want: 1},
-		{a: 5, b: 0, want: 0},
+		{a: 5, b: -5, want: -25},
 	}
 
 	for _, tc := range testCases {
