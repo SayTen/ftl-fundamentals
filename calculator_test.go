@@ -107,3 +107,26 @@ func TestDivide(t *testing.T) {
 		}
 	}
 }
+
+func TestSqrt(t *testing.T) {
+	t.Parallel()
+
+	testCases := []testCase{
+		{a: 4, want: 2, name: "Square root of whole positive number"},
+		{a: 9, want: 3, name: "Square root of whole positive number"},
+		{a: -2, name: "Negative number should produce error", errExpected: true},
+	}
+
+	for _, tc := range testCases {
+		got, err := calculator.Sqrt(tc.a)
+
+		errReceived := err != nil
+		if tc.errExpected != errReceived {
+			t.Fatalf("%s: Sqrt(%f): unexpected error status: %v", tc.name, tc.a, errReceived)
+		}
+
+		if !tc.errExpected && tc.want != got {
+			t.Errorf("%s: Sqrt(%f): want %f, got %f", tc.name, tc.a, tc.want, got)
+		}
+	}
+}
