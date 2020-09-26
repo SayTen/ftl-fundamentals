@@ -2,6 +2,7 @@ package calculator_test
 
 import (
 	"calculator"
+	"math/rand"
 	"testing"
 )
 
@@ -25,6 +26,21 @@ func TestAdd(t *testing.T) {
 		got := calculator.Add(tc.a, tc.b)
 		if tc.want != got {
 			t.Errorf("%s: Add(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
+		}
+	}
+}
+
+func TestAddRandom(t *testing.T) {
+	t.Parallel()
+
+	for i := 0; i < 1000; i++ {
+		a := rand.Float64()
+		b := rand.Float64()
+		want := a + b
+		got := calculator.Add(a, b)
+
+		if want != got {
+			t.Fatalf("Add(%f, %f): want %f, got %f", a, b, want, got)
 		}
 	}
 }
