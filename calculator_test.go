@@ -81,12 +81,12 @@ func TestDivide(t *testing.T) {
 	for _, tc := range testCases {
 		got, err := calculator.Divide(tc.a, tc.b)
 
-		errGot := err != nil
-		if tc.errExpected == errGot {
-			t.Fatalf("%s: Divide(%f, %f): unexpected error status: %v", tc.name, tc.a, tc.b, errGot)
+		errReceived := err != nil
+		if tc.errExpected != errReceived {
+			t.Fatalf("%s: Divide(%f, %f): unexpected error status: %v", tc.name, tc.a, tc.b, errReceived)
 		}
 
-		if tc.want != got {
+		if !tc.errExpected && tc.want != got {
 			t.Errorf("%s: Divide(%f, %f): want %f, got %f", tc.name, tc.a, tc.b, tc.want, got)
 		}
 	}
